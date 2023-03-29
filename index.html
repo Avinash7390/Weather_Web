@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/bc4a2822c3.js" crossorigin="anonymous"></script>
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <!-- styleSheet -->
+    <style>
+        body {
+            /* font-family: 'Montserrat', sans-serif; */
+            transition: 3s;
+        }
+
+        .login-container {
+            margin-top: 10%;
+            border: 1px solid #CCD1D1;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            max-width: 50%;
+        }
+
+        .ads {
+            background-color: #145893;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ads h1 {
+            margin-top: 5%;
+            font-family: 'Delicious Handrawn', cursive;
+
+        }
+
+        .profile-img {
+            text-align: center;
+            margin-top: 10%;
+        }
+
+        .imgIcon {
+            height: 110px;
+            width: 110px;
+            border-radius: 50%;
+
+        }
+
+        @keyframes mymove {
+            from {
+                border: 1px solid #F2F3F4;
+            }
+
+            to {
+                border: 8px solid #F2F3F4;
+            }
+        }
+
+        .login-form {
+            padding: 15px;
+            background-color: transparent;
+        }
+
+        .login-form h3 {
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .form-control {
+            font-size: 14px;
+            font-family: 'Delicious Handrawn', cursive;
+        
+        }
+
+        .forget-password a {
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .day-and-date {
+            padding-top: 5%;
+        }
+
+        .temp {
+            padding-top: 3%;
+            font-size: 1.5rem;
+            ;
+            font-weight: bold;
+            color: #fff;
+
+        }
+
+        .condition {
+            padding-top: 3%;
+        }
+
+        .button1 {
+            margin-left: 35%;
+            margin-top: 30%;
+        }
+
+        .time {
+            padding-top: 3%;
+        }
+
+        p {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: black;
+        }
+
+        h3 {
+            font-family: 'Alkatra', cursive;
+            color: rgb(93, 12, 186);
+            margin-top: 20%;
+            
+        }
+
+    </style>
+    <!-- //<link rel="stylesheet" href="style.css"> -->
+    <title>QuickWeather</title>
+</head>
+
+<body>
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-6 ads Content">
+                <h2>MumbaiWeather</h2>
+                <h1>Mumbai</h1>
+                <p class="day-and-date" id="date">Wed | 26 Apr</p>
+                <p class="time" id="time">Time - 12:30 PM</p>
+                <p class="temp" id="temp"><span>{%tempInF%}</span> &deg;F </p>
+                <p class="condition" id="cond">humidity: {%Condition%}</p>
+            </div>
+            <div class="col-md-6 login-form">
+                <div class="profile-img">
+                    <!-- <img src="img/sun.png" alt="error400" class="imgIcon" id="ImgIcon"> -->
+                    <i class="fa-regular fa-sun fa-2xl"></i>
+                </div>
+                <h3>QuickCalculate</h3>
+               
+            </div>
+        </div>
+    </div>
+    <!-- <script src="index.js"></script> -->
+    <!-- <script src="server.js"></script> -->
+    <script>
+        const tempStatus = "cloud";
+        var currDate;
+        var currDay;
+        var currMonth;
+
+        var currYear;
+
+        var period;
+        var Hour;
+        var minute;
+
+        const getCurrDay = () => {
+            var weekdays = new Array(7);
+            weekdays[0] = "Sunday";
+            weekdays[1] = "Monday";
+            weekdays[2] = "Tuesday";
+            weekdays[3] = "Wednesday";
+            weekdays[4] = "Friday";
+            weekdays[5] = "Saturday";
+            weekdays[6] = "Sunday";
+
+
+            let currTime = new Date();
+            //console.log( weekdays[currTime.getDay()]);
+            currDay = weekdays[currTime.getDay()];
+
+
+        };
+        getCurrDay();
+
+        const getcurrTime = () => {
+            var month = new Array(12);
+            month[0] = "Jan";
+            month[1] = "Feb";
+            month[2] = "Mar";
+            month[3] = "Apr";
+            month[4] = "May";
+            month[5] = "Jun";
+            month[6] = "Jul";
+            month[7] = "Aug";
+            month[8] = "Sep";
+            month[9] = "Oct";
+            month[10] = "Nov";
+            month[11] = "Dec";
+
+            let nowTime = new Date();
+
+            currMonth = nowTime.getMonth();
+            currDate = nowTime.getDate();
+
+            currYear = nowTime.getFullYear();
+            Hour = nowTime.getHours();
+            minute = nowTime.getMinutes();
+            currMonth = month[currMonth];
+
+            period = "AM";
+            if (Hour > 11) {
+                period = "PM";
+                if (Hour > 12) {
+                    Hour = Hour - 12;
+                }
+            }
+
+            if (minute < 10) {
+                minute = "0" + minute;
+            }
+            //console.log(month[currMonth],currDate,currYear);
+        }
+        getcurrTime();
+        // console.log( currDay+ " "+ currDate +" "+currMonth+ " "+currYear);
+
+        document.querySelector(".day-and-date").innerHTML = currDay + " | " + currDate + " / " + currMonth + " / " + currYear;
+        document.querySelector(".time").innerHTML = "Time- " + Hour + ":" + minute + " " + period;
+        // var humidity=document.querySelector("span").innerHTML;
+        // if(humidity>30){
+            //document.querySelector("span").innerHTML= document.querySelector("span").innerHTML-273;
+
+        // }
+
+
+    </script>
+</body>
+
+</html>
